@@ -10,7 +10,7 @@ class DataCoursesHive extends HiveObject {
   final int id;
 
   @HiveField(1)
-  bool? isFavorite;
+  final String isFavorite; // Ubah tipe menjadi String
 
   DataCoursesHive({
     required this.id,

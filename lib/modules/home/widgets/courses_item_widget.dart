@@ -69,8 +69,8 @@ class _CoursesItemWidgetState extends State<CoursesItemWidget> {
           ),
           trailing: IconButton(
             icon: isFavorite
-                ? const Icon(Icons.favorite, color: Colors.red) // Favorit
-                : const Icon(Icons.favorite_border), // Bukan favorit
+                ? const Icon(Icons.bookmark, color: Colors.indigo) // Favorit
+                : const Icon(Icons.bookmark_border, color: Colors.indigo), // Bukan favorit
             onPressed: () async {
               setState(() {
                 isFavorite = !isFavorite;
@@ -80,7 +80,7 @@ class _CoursesItemWidgetState extends State<CoursesItemWidget> {
               if (isFavorite) {
                 await FavoriteService.addToFavorites(widget.id);
                 _showSnackBar(
-                    'Added to favorites: ${widget.name}', Colors.blue);
+                    'Added to favorites: ${widget.name}', Colors.indigo);
               } else {
                 await FavoriteService.removeFromFavorites(widget.id);
                 _showSnackBar(

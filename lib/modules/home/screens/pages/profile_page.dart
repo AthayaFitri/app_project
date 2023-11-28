@@ -1,6 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+
 import '../../../../api/app_routes.dart';
 import '../../../../utils/services/local_storage_service.dart';
 
@@ -8,16 +9,31 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage>
     with TickerProviderStateMixin {
+  final List<Map<String, dynamic>> profiles = [
+    {
+      'name': '124210071',
+      'email': 'athayarizqiafitriani@gmail.com',
+      'image': 'assets/images/email.png',
+    },
+    {
+      'name': '124210052',
+      'email': 'wandilo123@gmail.com',
+      'image': 'assets/images/email.jpeg',
+    },
+  ];
+
+  late PageController _pageController;
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -56,51 +72,60 @@ class _ProfilePageState extends State<ProfilePage>
           Container(
             width: double.infinity,
             height: 350,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-              color: Colors.indigo.shade800,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 75,
-                    backgroundColor: Colors.indigo.shade400,
-                    child: const CircleAvatar(
-                      radius: 70,
-                      foregroundImage: AssetImage('assets/images/email.png'),
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: profiles.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                    color: Colors.indigo.shade800,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 75,
+                          backgroundColor: Colors.indigo.shade400,
+                          child: CircleAvatar(
+                            radius: 70,
+                            foregroundImage:
+                                AssetImage(profiles[index]['image']),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 25,
+                          ),
+                          child: Text(
+                            profiles[index]['name'],
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 14),
+                          child: Text(
+                            profiles[index]['email'],
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 25,
-                    ),
-                    child: const Text(
-                      'Athaya Rizqia Fitriani',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 14),
-                    child: const Text(
-                      'athayarizqiafitriani@gmail.com',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
           SizedBox(
@@ -131,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage>
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

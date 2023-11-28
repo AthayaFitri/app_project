@@ -18,7 +18,7 @@ class DataCoursesHiveAdapter extends TypeAdapter<DataCoursesHive> {
     };
     return DataCoursesHive(
       id: fields[0] as int,
-      isFavorite: fields[1] as bool?,
+      isFavorite: fields[1] as String,
     );
   }
 

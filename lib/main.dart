@@ -24,7 +24,6 @@ Future<void> main() async {
 
   await Hive.openBox<DataCoursesHive>('data_courses_box');
   runApp(const MyApp());
-  await Hive.close();
 }
 
 class MyApp extends StatefulWidget {
@@ -38,7 +37,6 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   void dispose() {
-    // Disini kamu dapat menutup Hive atau melakukan hal lain yang perlu di-dispose
     Hive.close();
     super.dispose();
   }
